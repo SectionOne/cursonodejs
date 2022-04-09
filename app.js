@@ -11,6 +11,15 @@ var app = express();
 app.use(bodyParser.urlencoded({extended:false})); //Configurar  bodyparser
 app.use(bodyParser.json()); //Rebem el cos de la petició i el transformem en un json
 
+app.use((req, res, next) => {
+    console.log("middleware 1");
+    next();
+})
+
+app.use((req, res, next) => {
+    console.log("middleware 2");
+    next();
+})
 //configurar capçaleres
 
 //Rutes base
