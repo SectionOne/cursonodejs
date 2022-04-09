@@ -11,11 +11,16 @@ var app = express();
 app.use(bodyParser.urlencoded({extended:false})); //Configurar  bodyparser
 app.use(bodyParser.json()); //Rebem el cos de la petició i el transformem en un json
 
+const testFunction = () =>{
+    console.log("log from the testfunction")
+}
+
 app.use((req, res, next) => {
     setTimeout(()=>{
         console.log("middleware 1");
+        testFunction()
+        next();
     },2000)
-    next();
 })
 
 app.use((req, res, next) => {
@@ -25,6 +30,7 @@ app.use((req, res, next) => {
 //configurar capçaleres
 
 //Rutes base
+
 app.get("/get", (req, res) => {
     res.send("Soc un get")
 })
