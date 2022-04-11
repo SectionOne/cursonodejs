@@ -93,10 +93,28 @@ function actualitzarUsuari(req, res){
     });
 }
 
+function borrarUsuari(req, res){
+    var usuariId = req.params.id;
+    var update = req.body;
+
+    Usuari.findByIdAndDelete(usuariId, (err,usuariBorrat) =>{
+        if(err){
+            res.status(500).send({message: "Error al actualitzar l'usuari"});
+        }else{
+            if(!usuariBorrat){
+                res.status(404).send({message: "No s'ha pogut borrar l'usuari"});
+            }else{
+                res.status(200).send({usuari: usuariBorrat});
+            }
+        }
+    });
+}
+
 module.exports = {
     proves,
     guardarUsuari,
     veureUsuari,
     veureTotsUsuari,
-    actualitzarUsuari
+    actualitzarUsuari,
+    borrarUsuari
 };
