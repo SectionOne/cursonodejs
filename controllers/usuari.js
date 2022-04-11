@@ -36,7 +36,28 @@ function guardarUsuari(req, res){
     }
 }
 
+function veureUsuari(req, res){
+    var params = req.body;
+
+    var email = params.email;
+    //var clau = params.clau;
+
+    Usuari.findOne({email: email.toLowerCase()}, (err, usuari) => { //Permet cercar un registre per una propietat i tenim que definirli una funció fletxa amb el error i l'objecte
+        if(err){
+            res.status(500).send({message: "Error en la solicitud"});
+        }else{
+            if(!usuari){
+                res.status(404).send({message: "Les credencials són incorrectes"});
+            } else{
+                //Dades del usuari loguejat
+                res.status(200).send({usuari}); //Si no indiquem cap propietat, emprara la de usuari que coincideix amb el nom de l'objecte.
+            }
+        }
+    });
+}
+
 module.exports = {
     proves,
-    guardarUsuari
+    guardarUsuari,
+    veureUsuari
 };
