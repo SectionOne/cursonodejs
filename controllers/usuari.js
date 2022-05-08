@@ -152,6 +152,25 @@ function uploadImages(req, res){
     }
 }
 
+function veureImgUsuari(req, res){
+    var idUsuari = req.params.id;;
+    Imatge.find({usuari: idUsuari}, (err, imgUsuari) => { 
+        console.log(imgUsuari);//Permet cercar un registre per una propietat i tenim que definirli una funció fletxa amb el error i l'objecte
+        if(err){
+            res.status(500).send({message: "Error en la solicitud"});
+        }else{
+            if(!imgUsuari){
+                res.status(404).send({message: "No hi han imatges d'aquest usuari"});
+            } else if(imgUsuari == ""){
+                res.status(404).send({message: "Usuari no vàlid"});
+            } else {
+                //Imatges del usuari loguejat
+                res.status(200).send({images: imgUsuari}); //Si no indiquem cap propietat, emprara la de usuari que coincideix amb el nom de l'objecte.
+            }
+        }
+    });
+}
+
 module.exports = {
     proves,
     guardarUsuari,
@@ -159,5 +178,6 @@ module.exports = {
     veureTotsUsuari,
     actualitzarUsuari,
     borrarUsuari,
-    uploadImages
+    uploadImages,
+    veureImgUsuari
 };

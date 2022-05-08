@@ -16,5 +16,6 @@ api.get("/veuretotsusuari", UsuariController.veureTotsUsuari);
 api.put("/actualitzar-usuari/:id", UsuariController.actualitzarUsuari);
 api.delete("/borrarusuari/:id", UsuariController.borrarUsuari);
 api.post("/upload-image-user/:id", [md_upload], UsuariController.uploadImages);
+api.get("/all-image-user/:id", [md_upload], UsuariController.veureImgUsuari);
 // api.put("/actualitzar-usuari/:id?"); Afegim un ? al final, per poder dir que aquest parametre és opcional.
 module.exports = api;
