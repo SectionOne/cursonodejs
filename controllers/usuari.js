@@ -1,5 +1,7 @@
 'use strict'
 
+const { UserController } = require("moongose/controller");
+const Imatge = require("../models/imatge");
 var Usuari = require("../models/usuari"); 
 
 function proves(req, res){
@@ -111,14 +113,38 @@ function borrarUsuari(req, res){
 }
 
 function uploadImages(req, res){
+    var imatge = new Imatge(); //Instanciem l'objecte de la col·lecció imatge
     var userId = req.params.id;
     var file_name = "No pujat...";
 
     //Anem a comprobar si rebem algo per les variables globals de la peticio "files"
-    if(req.files){
+    if(req.files){ //recollim totes les dades que arriven en la peticio amb el metode post
         var file_path = req.files.image.path;
         var file_split = file_path.split("\\");
         var file_name = file_split[2];
+        imatge.arxiu = file_name; //Poblem l'objecte amb el nom d'arxiu
+        imatge.usuari = userId; //Poblem l'objecte amb el id d'usuari
+
+        var ext_split = file_path.split("\.");
+        var file_ext = ext_split[1]; //Per obtenir l'extensió de l'arxiu
+
+        //Comprovem si l'extensió és de les autoritzades
+        if(file_ext == "png" || file_ext == "jpg" || file_ext == "gif"){
+            //Guardem la imatge en la col·lecció imatge
+            imatge.save((err, imatgeStored) => { //Obtenim els errors en el parametre err i l'objecte enmagatzemat en imatgeStored
+                if(err){
+                    res.status(500).send({message: "Error al guardar la imatge"});
+                } else {
+                    if(!imatgeStored){
+                        res.status(404).send({message: "No s'ha registrat la imatge"});
+                    } else {                        
+                        res.status(200).send({imatge: imatgeStored});
+                    }
+                }
+            })
+        } else  {
+            res.status(200).send({message: "Extensió de l'arxiu no vàlida"});
+        }
         console.log(file_split); //Per provar
     } else {
         //Resposta per quan no rebem correctament l'arxiu
