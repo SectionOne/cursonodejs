@@ -101,7 +101,7 @@ function borrarUsuari(req, res){
 
     Usuari.findByIdAndDelete(usuariId, (err,usuariBorrat) =>{
         if(err){
-            res.status(500).send({message: "Error al actualitzar l'usuari"});
+            res.status(500).send({message: "Error en esborrar l'usuari"});
         }else{
             if(!usuariBorrat){
                 res.status(404).send({message: "No s'ha pogut borrar l'usuari"});
