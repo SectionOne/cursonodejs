@@ -121,7 +121,7 @@ function uploadImages(req, res){
     if(req.files){ //recollim totes les dades que arriven en la peticio amb el metode post
         var file_path = req.files.image.path;
         var file_split = file_path.split("\\");
-        var file_name = file_split[2];
+        file_name = file_split[2];
         imatge.arxiu = file_name; //Poblem l'objecte amb el nom d'arxiu
         imatge.usuari = userId; //Poblem l'objecte amb el id d'usuari
 
