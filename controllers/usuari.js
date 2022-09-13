@@ -171,17 +171,6 @@ function veureImgUsuari(req, res){
     });
 }
 
-function veureArxiuImatge(req, res){
-    var imageFile = req.params.imageFile; //Indicarem com a parametre en el slug el nom del arxiu i si existeix ens retornarà l'arxiu sense necessitat de mostrar la ruta a on esta enmagatzemat l'arxiu.
-    var path_file = './uploads/users/' + imageFile;
-    
-       if(fs.existsSync(path_file)){
-            res.sendFile(path.resolve(path_file));
-        } else {
-            res.status(404).send({message: "No existeix la imatge... " + path_file});
-        }
-}
-
 module.exports = {
     proves,
     guardarUsuari,
@@ -190,6 +179,5 @@ module.exports = {
     actualitzarUsuari,
     borrarUsuari,
     uploadImages,
-    veureImgUsuari,
-    veureArxiuImatge
+    veureImgUsuari
 };
