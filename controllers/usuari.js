@@ -153,7 +153,7 @@ function uploadImages(req, res){
 }
 
 function veureImgUsuari(req, res){
-    var idUsuari = req.params.id;;
+    var idUsuari = req.params.id;
     Imatge.find({usuari: idUsuari}, (err, imgUsuari) => { 
         console.log(imgUsuari);//Permet cercar un registre per una propietat i tenim que definirli una funció fletxa amb el error i l'objecte
         if(err){
