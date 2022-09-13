@@ -153,7 +153,7 @@ function uploadImages(req, res){
 }
 
 function veureImgUsuari(req, res){
-    var idUsuari = req.params.id;;
+    var idUsuari = req.params.id;
     Imatge.find({usuari: idUsuari}, (err, imgUsuari) => { 
         console.log(imgUsuari);//Permet cercar un registre per una propietat i tenim que definirli una funció fletxa amb el error i l'objecte
         if(err){
@@ -171,6 +171,17 @@ function veureImgUsuari(req, res){
     });
 }
 
+function veureArxiuImatge(req, res){
+    var imageFile = req.params.imageFile; //Indicarem com a parametre en el slug el nom del arxiu i si existeix ens retornarà l'arxiu sense necessitat de mostrar la ruta a on esta enmagatzemat l'arxiu.
+    var path_file = './uploads/users/' + imageFile;
+    
+       if(fs.existsSync(path_file)){
+            res.sendFile(path.resolve(path_file));
+        } else {
+            res.status(404).send({message: "No existeix la imatge... " + path_file});
+        }
+}
+
 module.exports = {
     proves,
     guardarUsuari,
@@ -179,5 +190,6 @@ module.exports = {
     actualitzarUsuari,
     borrarUsuari,
     uploadImages,
-    veureImgUsuari
+    veureImgUsuari,
+    veureArxiuImatge
 };
