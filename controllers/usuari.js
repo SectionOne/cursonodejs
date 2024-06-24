@@ -143,7 +143,7 @@ function uploadImages(req, res){
                 }
             })
         } else  {
-            res.status(200).send({message: "Extensió de l'arxiu no vàlida"});
+            res.status(400).send({message: "Extensió de l'arxiu no vàlida"});
         }
         console.log(file_split); //Per provar
     } else {
